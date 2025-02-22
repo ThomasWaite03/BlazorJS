@@ -23,22 +23,22 @@ internal abstract class Storage : ISessionStorage
         return await JS.InvokeAsync<IEnumerable<string>>("eval", $"Object.keys({_storageType})");
     }
 
-    public async Task<string?> GetItemAsync(string key)
+    public async Task<string?> GetAsync(string key)
     {
         return await JS.InvokeAsync<string>($"{_storageType}.getItem", key);
     }
 
-    public async Task SetItemAsync(string key, string value)
+    public async Task SetAsync(string key, string value)
     {
         await JS.InvokeVoidAsync($"{_storageType}.setItem", [key, value]);
     }
 
-    public async Task RemoveItemAsync(string key)
+    public async Task RemoveAsync(string key)
     {
         await JS.InvokeVoidAsync($"{_storageType}.removeItem", key);
     }
 
-    public async Task ClearItems()
+    public async Task ClearAsync()
     {
         await JS.InvokeVoidAsync($"{_storageType}.clear");
     }

@@ -10,29 +10,33 @@ public interface ILocalStorage
 
     /// <summary>
     /// Returns the value for a certain <paramref name="key"/> in the local storage.
+    /// <para>Equivalent to <c>localStorage.getItem()</c>.</para>
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<string?> GetItemAsync(string key);
+    Task<string?> GetAsync(string key);
 
     /// <summary>
     /// Sets an item in the local storage.
+    /// <para>Equivalent to <c>localStorage.setItem()</c>.</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    Task SetItemAsync(string key, string value);
+    Task SetAsync(string key, string value);
 
     /// <summary>
     /// Removes an item from the local storage.
+    /// <para>Equivalent to <c>localStorage.removeItem()</c>.</para>
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task RemoveItemAsync(string key);
+    Task RemoveAsync(string key);
 
     /// <summary>
     /// Clears all items in the local storage.
+    /// <para>Equivalent to <c>localStorage.clear()</c>.</para>
     /// </summary>
     /// <returns></returns>
-    Task ClearItems();
+    Task ClearAsync();
 }
