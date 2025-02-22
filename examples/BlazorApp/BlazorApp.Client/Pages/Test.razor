@@ -1,0 +1,19 @@
+﻿@page "/test"
+@rendermode InteractiveAuto
+
+@using BlazorJS
+
+@inject IJSConsole _console
+
+<PageTitle>BlazorJS Test</PageTitle>
+
+<h1>BlazorJS Test</h1>
+
+<button class="btn btn-primary" @onclick="TestAsync">Click to run test</button>
+
+@code {
+    private async Task TestAsync()
+    {
+        await _console.LogAsync("Hello world!");
+    }
+}
