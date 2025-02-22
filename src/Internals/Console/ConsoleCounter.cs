@@ -2,12 +2,12 @@
 
 namespace BlazorJS.Internals.Console;
 
-internal class ConsoleCounter : IJSConsoleCounter
+internal class ConsoleCounter : IConsoleCounter
 {
     private readonly JSInvoker JS;
     private readonly string _label;
 
-    public ConsoleCounter(JSInvoker jsInvoker, string label)
+    internal ConsoleCounter(JSInvoker jsInvoker, string label)
     {
         JS = jsInvoker;
         _label = label;

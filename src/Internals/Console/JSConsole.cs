@@ -1,7 +1,4 @@
-﻿using Microsoft.JSInterop;
-using System.Reflection.Emit;
-
-namespace BlazorJS.Internals.Console;
+﻿namespace BlazorJS.Internals.Console;
 
 internal class JSConsole : IJSConsole
 {
@@ -9,9 +6,9 @@ internal class JSConsole : IJSConsole
 
     private readonly JSInvoker JS;
 
-    public JSConsole(IJSRuntime jsRuntime)
+    public JSConsole(JSInvoker invoker)
     {
-        JS = new JSInvoker(jsRuntime);
+        JS = invoker;
     }
 
     public async Task AssertAsync(bool condition, object? message)
@@ -32,7 +29,7 @@ internal class JSConsole : IJSConsole
         await JS.InvokeVoidAsync("console.clear");
     }
 
-    public IJSConsoleCounter CreateCounter(string? label = null)
+    public IConsoleCounter CreateCounter(string? label = null)
     {
         return new ConsoleCounter(JS, label ?? DefaultLabel);
     }
@@ -121,7 +118,7 @@ internal class JSConsole : IJSConsole
         await JS.InvokeVoidAsync("console.table", data);
     }
 
-    public IJSConsoleTimer CreateTimer(string? label = null)
+    public IConsoleTimer CreateTimer(string? label = null)
     {
         return new ConsoleTimer(JS, label ?? DefaultLabel);
     }

@@ -27,7 +27,7 @@ public interface IJSConsole
     /// </summary>
     /// <param name="label"></param>
     /// <returns></returns>
-    IJSConsoleCounter CreateCounter(string? label = null);
+    IConsoleCounter CreateCounter(string? label = null);
 
     /// <summary>
     /// Logs a debug message to the browser console.
@@ -118,7 +118,7 @@ public interface IJSConsole
     /// </summary>
     /// <param name="label"></param>
     /// <returns></returns>
-    IJSConsoleTimer CreateTimer(string? label = null);
+    IConsoleTimer CreateTimer(string? label = null);
 
     /// <summary>
     /// Prints a stack trace to the console.

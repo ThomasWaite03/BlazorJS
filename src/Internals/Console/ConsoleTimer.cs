@@ -2,7 +2,7 @@
 
 namespace BlazorJS.Internals.Console;
 
-internal class ConsoleTimer : IJSConsoleTimer
+internal class ConsoleTimer : IConsoleTimer
 {
     private readonly JSInvoker JS;
     private readonly string _label;

@@ -1,6 +1,6 @@
 ﻿namespace BlazorJS;
 
-public interface IJSConsoleTimer
+public interface IConsoleTimer
 {
     /// <summary>
     /// Starts the timer.

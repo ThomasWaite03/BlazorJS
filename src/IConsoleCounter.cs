@@ -1,6 +1,6 @@
 ﻿namespace BlazorJS;
 
-public interface IJSConsoleCounter
+public interface IConsoleCounter
 {
     /// <summary>
     /// Logs the number of times this method has been called.
