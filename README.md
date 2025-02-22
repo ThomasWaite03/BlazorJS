@@ -14,7 +14,7 @@ builder.Services.AddBlazorJS();
 
 ## Usage
 ### Console API Example
-```razor
+```csharp
 @using BlazorJS;
 
 @inject IJSConsole _console
@@ -23,8 +23,46 @@ builder.Services.AddBlazorJS();
   protected override async Task OnInitializedAsync()
   {
     // Log to the browser console
-    _console.Log("Hello world!");
-    _console.Error("This is an error!");
+    await _console.LogAsync("Hello world!");
+
+    // Log an error message
+    await _console.ErrorAsync("This is an error!");
+  }
+}
+```
+
+### Local Storage Example
+```csharp
+@using BlazorJS;
+
+@inject ILocalStorage _localStorage
+
+@code {
+  protected override async Task OnInitializedAsync()
+  {
+    // Save a key/value pair to the local storage
+    await _localStorage.SetAsync("myKey", "myValue");
+
+    // Get the value from local storage using the key
+    var myValue = await _localStorage.GetAsync("myKey");
+  }
+}
+```
+
+### Session Storage Example
+```csharp
+@using BlazorJS;
+
+@inject ISessionStorage _sessionStorage
+
+@code {
+  protected override async Task OnInitializedAsync()
+  {
+    // Save a key/value pair to the session storage
+    await _sessionStorage.SetAsync("keyToRemove", "valueToRemove");
+
+    // Remove the value from the session storage
+    await _sessionStorage.RemoveAsync("keyToRemove");
   }
 }
 ```
