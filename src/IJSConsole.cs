@@ -1,4 +1,6 @@
-﻿namespace BlazorJS;
+﻿using BlazorJS.Internals.Console;
+
+namespace BlazorJS;
 
 public interface IJSConsole
 {
@@ -6,7 +8,13 @@ public interface IJSConsole
     /// Logs a message to the console if the condition is false.
     /// <para>Equivalent to <c>console.assert()</c>.</para>
     /// </summary>
-    Task AssertAsync(bool condition, params object[] messages);
+    Task AssertAsync(bool condition, object? messages);
+
+    /// <summary>
+    /// Logs messages to the console if the condition is false.
+    /// <para>Equivalent to <c>console.assert()</c>.</para>
+    /// </summary>
+    Task AssertAsync(bool condition, IEnumerable<object?> messages);
 
     /// <summary>
     /// Clears all messages from the console.
@@ -15,22 +23,23 @@ public interface IJSConsole
     Task ClearAsync();
 
     /// <summary>
-    /// Logs the number of times this method has been called with the same label.
-    /// <para>Equivalent to <c>console.count()</c>.</para>
+    /// Creates a counter object for incrementing and logging a count for a specific label
     /// </summary>
-    Task CountAsync(string label = "default");
+    /// <param name="label"></param>
+    /// <returns></returns>
+    IJSConsoleCounter CreateCounter(string? label = null);
 
     /// <summary>
-    /// Resets the count for a specific label.
-    /// <para>Equivalent to <c>console.countReset()</c>.</para>
+    /// Logs a debug message to the browser console.
+    /// <para>Equivalent to <c>console.debug()</c>.</para>
     /// </summary>
-    Task CountResetAsync(string label = "default");
+    Task DebugAsync(object? message);
 
     /// <summary>
     /// Logs debug messages to the browser console.
     /// <para>Equivalent to <c>console.debug()</c>.</para>
     /// </summary>
-    Task DebugAsync(params object[] messages);
+    Task DebugAsync(IEnumerable<object?> messages);
 
     /// <summary>
     /// Displays an interactive list of all properties of a specified JavaScript object.
@@ -45,74 +54,99 @@ public interface IJSConsole
     Task DirXmlAsync(object obj);
 
     /// <summary>
+    /// Logs an error message to the browser console.
+    /// <para>Equivalent to <c>console.error()</c>.</para>
+    /// </summary>
+    Task ErrorAsync(object? message);
+
+    /// <summary>
     /// Logs error messages to the browser console.
     /// <para>Equivalent to <c>console.error()</c>.</para>
     /// </summary>
-    Task ErrorAsync(params object[] messages);
+    Task ErrorAsync(IEnumerable<object?> messages);
 
-    ///// <summary>
-    ///// Creates a new inline group in the console.
-    ///// <para>Equivalent to <c>console.group()</c>.</para>
-    ///// </summary>
-    //Task GroupAsync(params object[] messages);
+    /// <summary>
+    /// Creates a new inline group in the console.
+    /// <para>Equivalent to <c>console.group()</c>.</para>
+    /// </summary>
+    Task GroupAsync(string? label = null);
 
-    ///// <summary>
-    ///// Creates a new collapsed inline group in the console.
-    ///// <para>Equivalent to <c>console.groupCollapsed()</c>.</para>
-    ///// </summary>
-    //Task GroupCollapsedAsync(params object[] messages);
+    /// <summary>
+    /// Creates a new collapsed inline group in the console.
+    /// <para>Equivalent to <c>console.groupCollapsed()</c>.</para>
+    /// </summary>
+    Task GroupCollapsedAsync(string? label = null);
 
-    ///// <summary>
-    ///// Ends the most recently created group.
-    ///// <para>Equivalent to <c>console.groupEnd()</c>.</para>
-    ///// </summary>
-    //Task GroupEndAsync();
+    /// <summary>
+    /// Ends the most recently created group.
+    /// <para>Equivalent to <c>console.groupEnd()</c>.</para>
+    /// </summary>
+    Task GroupEndAsync();
 
-    ///// <summary>
-    ///// Logs informational messages to the browser console.
-    ///// <para>Equivalent to <c>console.info()</c>.</para>
-    ///// </summary>
-    //Task InfoAsync(params object[] messages);
+    /// <summary>
+    /// Logs an informational message to the browser console.
+    /// <para>Equivalent to <c>console.info()</c>.</para>
+    /// </summary>
+    Task InfoAsync(object? message);
+
+    /// <summary>
+    /// Logs informational messages to the browser console.
+    /// <para>Equivalent to <c>console.info()</c>.</para>
+    /// </summary>
+    Task InfoAsync(IEnumerable<object?> messages);
+
+    /// <summary>
+    /// Logs a message to the browser console.
+    /// <para>Equivalent to <c>console.log()</c>.</para>
+    /// </summary>
+    Task LogAsync(object? message);
 
     /// <summary>
     /// Logs messages to the browser console.
     /// <para>Equivalent to <c>console.log()</c>.</para>
     /// </summary>
-    Task LogAsync(params object[] messages);
+    Task LogAsync(IEnumerable<object?> messages);
 
-    ///// <summary>
-    ///// Displays tabular data as a table in the console.
-    ///// <para>Equivalent to <c>console.table()</c>.</para>
-    ///// </summary>
-    //Task TableAsync(object data);
+    /// <summary>
+    /// Displays a list of objects as a table in the console.
+    /// <para>Equivalent to <c>console.table()</c>.</para>
+    /// </summary>
+    Task TableAsync(IEnumerable<object> data);
 
-    ///// <summary>
-    ///// Starts a timer with a given label.
-    ///// <para>Equivalent to <c>console.time()</c>.</para>
-    ///// </summary>
-    //Task TimeAsync(string label);
+    /// <summary>
+    /// Creates a timer object which can be used to log the time to the console.
+    /// </summary>
+    /// <param name="label"></param>
+    /// <returns></returns>
+    IJSConsoleTimer CreateTimer(string? label = null);
 
-    ///// <summary>
-    ///// Stops the timer and logs the elapsed time.
-    ///// <para>Equivalent to <c>console.timeEnd()</c>.</para>
-    ///// </summary>
-    //Task TimeEndAsync(string label);
+    /// <summary>
+    /// Prints a stack trace to the console.
+    /// <para>Equivalent to <c>console.trace()</c>.</para>
+    /// </summary>
+    Task TraceAsync();
 
-    ///// <summary>
-    ///// Logs the elapsed time for a specific timer.
-    ///// <para>Equivalent to <c>console.timeLog()</c>.</para>
-    ///// </summary>
-    //Task TimeLogAsync(string label, params object[] messages);
+    /// <summary>
+    /// Prints a stack trace to the console along with a message.
+    /// <para>Equivalent to <c>console.trace()</c>.</para>
+    /// </summary>
+    Task TraceAsync(object? message);
 
-    ///// <summary>
-    ///// Prints a stack trace to the console.
-    ///// <para>Equivalent to <c>console.trace()</c>.</para>
-    ///// </summary>
-    //Task TraceAsync(params object[] messages);
+    /// <summary>
+    /// Prints a stack trace to the console along with some messages.
+    /// <para>Equivalent to <c>console.trace()</c>.</para>
+    /// </summary>
+    Task TraceAsync(IEnumerable<object?> messages);
 
-    ///// <summary>
-    ///// Logs warning messages to the browser console.
-    ///// <para>Equivalent to <c>console.warn()</c>.</para>
-    ///// </summary>
-    //Task WarnAsync(params object[] messages);
+    /// <summary>
+    /// Logs a warning message to the browser console.
+    /// <para>Equivalent to <c>console.warn()</c>.</para>
+    /// </summary>
+    Task WarnAsync(object? message);
+
+    /// <summary>
+    /// Logs warning messages to the browser console.
+    /// <para>Equivalent to <c>console.warn()</c>.</para>
+    /// </summary>
+    Task WarnAsync(IEnumerable<object?> messages);
 }

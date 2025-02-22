@@ -1,4 +1,4 @@
-﻿using BlazorJS.Apis;
+﻿using BlazorJS.Internals.Console;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorJS;
