@@ -47,8 +47,8 @@ internal abstract class Storage : ISessionStorage
     {
         return storageType switch
         {
-            StorageType.LocalStorage => "sessionStorage",
-            StorageType.SessionStorage => "localStorage",
+            StorageType.LocalStorage => "localStorage",
+            StorageType.SessionStorage => "sessionStorage",
             _ => throw new ArgumentOutOfRangeException(nameof(storageType)),
         };
     }
