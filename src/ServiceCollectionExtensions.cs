@@ -1,4 +1,5 @@
 ﻿using BlazorJS.Internals;
+using BlazorJS.Internals.Clipboard;
 using BlazorJS.Internals.Console;
 using BlazorJS.Internals.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,5 +15,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJSConsole, JSConsole>();
         services.AddScoped<ISessionStorage, SessionStorage>();
         services.AddScoped<ILocalStorage, LocalStorage>();
+        services.AddScoped<IClipboard, Clipboard>();
     }
 }
